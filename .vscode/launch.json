@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "cortex-debug",
+        "request": "launch",
+        "name": "Debug (OpenOCD)",
+        "servertype": "openocd",
+        "cwd": "${workspaceFolder}",
+        "runToMain": true,
+        "executable": "${workspaceFolder}/bin/main.elf",
+        "configFiles": [
+          "${workspaceFolder}/openocd.cfg"
+        ],
+        "svdFile":"STM32G070.svd"
+      }
+    ]
+  }
