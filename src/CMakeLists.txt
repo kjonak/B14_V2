@@ -6,7 +6,8 @@ Variables.c
 time/time.c
 
 drivers/GPIO.c
-drivers/UART3.c
+drivers/UART1.c
+drivers/USART.c
 
 ControlTask/CTRL_Task.c
 ControlTask/PID.c
@@ -15,8 +16,12 @@ ControlTask/odometry.c
 Scheduler/scheduler.c
 Tasks/tasks.c
 
-IO/LED.c
+Comunication/com_protocol.c
+Comunication/Telemetry.c
+Comunication/CommunicationHandler.c
 
+IO/LED.c
+IO/Motors.c
 
 PARENT_SCOPE
 )

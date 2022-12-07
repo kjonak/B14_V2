@@ -1,5 +1,12 @@
 {
     "files.associations": {
-
-    }
+        "stm32g070xx.h": "c",
+        "ctrl_task.h": "c",
+        "usart.h": "c",
+        "receiver.h": "c",
+        "communicationhandler.h": "c",
+        "motors.h": "c",
+        "config.h": "c"
+    },
+    "cmake.generator": "MinGW Makefiles"
 }

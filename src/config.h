@@ -1,39 +1,22 @@
 #pragma once
 #include <stm32g070xx.h>
 
-#define ENCODER_PPR 1280.0
-#define SHAFT_PPR 10
+#define VELOCITY_ENCODER_PPR 109512.f
+#define ROT_ENCODER_PPR 603840
 
+#define MIN_SIG 0.1
+#define MIN_VELOCITY 0.05
+#define MIN_VELOCITY_ERROR 0.005
 
 /****************PIN CONFIGURATION****************/
 #define LED_HB_PIN 10
 #define LED_HB_BUS GPIOA
 
+#define M_ARR 2500-1
+#define M1_DIR_PIN 4
+#define M1_DIR_BUS GPIOA
 
-#define LED_PC_CONNECTED_PIN 0
-#define LED_PC_CONNECTED_BUS GPIOB
+#define M2_DIR_PIN 5
+#define M2_DIR_BUS GPIOA
 
-#define LED_LOW_BAT_PIN 1
-#define LED_LOW_BAT_BUS GPIOB
-
-#define LED_PAD_CONNECTED_PIN 2
-#define LED_PAD_CONNECTED_BUS GPIOB
-
-#define FLASH_WP_PIN 12
-#define FLASH_WP_BUS GPIOC
-
-#define FLASH_HLD_PIN 2
-#define FLASH_HLD_BUS GPIOD
-
-#define FLASH_CS_PIN 11
-#define FLASH_CS_BUS GPIOC
-
-#define M1_A_PIN 12
-#define M1_A_BUS GPIOA
-#define M1_B_PIN 10
-#define M1_B_BUS GPIOA
-
-#define M2_A_PIN 9
-#define M2_A_BUS GPIOA
-#define M2_B_PIN 7
-#define M2_B_BUS GPIOA
+#define CTRL_HB_TIMEOUT_US 500000

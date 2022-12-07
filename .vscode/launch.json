@@ -7,7 +7,7 @@
         "name": "Debug (OpenOCD)",
         "servertype": "openocd",
         "cwd": "${workspaceFolder}",
-        "runToMain": true,
+        "runToEntryPoint": "main",
         "executable": "${workspaceFolder}/bin/main.elf",
         "configFiles": [
           "${workspaceFolder}/openocd.cfg"
