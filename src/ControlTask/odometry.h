@@ -9,4 +9,5 @@
 
 void ODO_Init(void);
 void ODO_task(timeUs_t currentTime);
+void ODO_ResetDist();
 #endif

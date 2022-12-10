@@ -13,8 +13,8 @@ void TELEMETRY_task(timeUs_t currentTime)
         return;
     msg.type = MSG_TO_USER_TELEMETRY;
     msg.tx_buffer = tx_buffer;
-    msg.user_data = (uint8_t*)VAR_GetFloatPtr(VAR_DISTANCE);
-    msg.data_len = 12*sizeof(float);
+    msg.user_data = (uint8_t*)VAR_GetFloatPtr(VAR_VELOCITY);
+    msg.data_len = 7*sizeof(float);
     COMPROTO_CreateMsg(&msg);
     uart->TransmitDMA(msg.tx_buffer, msg.buffer_len);
 }

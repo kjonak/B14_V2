@@ -6,6 +6,7 @@
 #include "drivers/USART.h"
 #include "Comunication/com_protocol.h"
 #include "ControlTask/CTRL_Task.h"
+#include "ControlTask/odometry.h"
 
 #define COMM_HANDLER_BUFFER_LEN 100
 
@@ -142,6 +143,8 @@ void COMHANDLER_Task(timeUs_t t)
     case TO_B14_MSG_SET_PWM:
         CTRL_NewInput(msg.data, msg.len);
         break;
+    case TO_B14_RESET_ODOMETRY:
+        ODO_ResetDist();
 
     default:
 

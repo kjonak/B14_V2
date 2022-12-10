@@ -12,10 +12,10 @@ typedef struct
 {
     float *distance;
     float *velocity;
-    float *acceleration;
+
     float *orientation;
     float *ang_velocity;
-    float *ang_acceleration;
+
 }ODO_data_t;
 
 static int32_t counter_1 = 0;
@@ -44,7 +44,11 @@ static int16_t GetAngCNT(void)
 static float prev_vel = 0;
 static void update_distance(float dt)
 {
+
+    
+
     float d_distance = (GetSpeedCNT())/VELOCITY_ENCODER_PPR;
+
     float vel = d_distance/dt;
     float new_velocity = 0.854**data.velocity + 0.0728*vel + 0.0728*prev_vel;
     prev_vel = vel;
@@ -77,17 +81,19 @@ void EXTI4_IRQHandler()
 
 static void update_rotation(float dt)
 {
-    int16_t cnt = GetAngCNT();
+    int16_t cnt = -GetAngCNT();
     rot_cnt += cnt;
     //rot_cnt %= ROT_ENCODER_PPR;
     //now rot_cnt == pulses
+    *data.orientation = rot_cnt/(float)ROT_ENCODER_PPR;
 
     float d_rotation = 6.28318530718f*((float)cnt)/(float)ROT_ENCODER_PPR;
     float new_ang_velocity = d_rotation/dt;
     
     *data.ang_velocity = new_ang_velocity;
     *data.orientation = 360.f*(float)rot_cnt/(float)ROT_ENCODER_PPR;
-
+    if(*data.orientation<0)
+        *data.orientation+=360.f;
     *counter_angle = 0;
 }
 
@@ -100,10 +106,9 @@ void ODO_Init(void)
 
     data.distance = VAR_GetFloatPtr(VAR_DISTANCE);
     data.velocity = VAR_GetFloatPtr(VAR_VELOCITY);
-    data.acceleration = VAR_GetFloatPtr(VAR_ACCELERATION);
-    data.orientation = VAR_GetFloatPtr(VAR_ORIENTATION);
+
+    data.orientation = VAR_GetFloatPtr(VAR_HEADING);
     data.ang_velocity = VAR_GetFloatPtr(VAR_ANGULAR_VELOCITY);
-    data.ang_acceleration = VAR_GetFloatPtr(VAR_ANGULAR_ACCELERATION);
 
     last_time = micros();
 }
@@ -117,4 +122,8 @@ void ODO_task(timeUs_t currentTime)
    update_rotation(dt_seconds);
     last_time = micros();
     return;
+}
+void ODO_ResetDist()
+{
+    data.distance = 0;
 }

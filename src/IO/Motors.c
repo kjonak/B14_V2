@@ -12,10 +12,9 @@ void MOTORS_SetOutputs(float fwd, float rot)
 {
     if(!motors_enabled)
         return;
-    rot = 0.1;
     float M1,M2;
     bool M1_dir = true;
-    bool M2_dir = true;
+    bool M2_dir = false;
 
     M1 = map(fwd,-1.f,1.f,-M_ARR,M_ARR);
     M2 = map(rot,-1.f,1.f,-M_ARR,M_ARR);
@@ -27,7 +26,7 @@ void MOTORS_SetOutputs(float fwd, float rot)
     }
      if(M2<0)
     {
-        M2_dir = false;
+        M2_dir = true;
         M2*=-1;
     }
 

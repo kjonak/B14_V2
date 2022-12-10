@@ -5,9 +5,11 @@
 #define ROT_ENCODER_PPR 603840
 
 #define MIN_SIG 0.1
-#define MIN_VELOCITY 0.05
-#define MIN_VELOCITY_ERROR 0.005
-
+#define MIN_VELOCITY 0.01
+#define MIN_VELOCITY_ERROR 0.001
+#define MIN_ANG_VELOCITY_ERROR 0.02
+#define MAX_ACCELERATION 5.f
+#define MAX_ANG_VELOCITY 0.5
 /****************PIN CONFIGURATION****************/
 #define LED_HB_PIN 10
 #define LED_HB_BUS GPIOA

@@ -8,7 +8,8 @@ typedef enum
     TO_B14_MSG_HEART_BEAT = 0x25,
     TO_B14_MSG_STOP_MOTORS = 0x26,
     TO_B14_MSG_ENABLE_MOTORS = 0x27,
-    TO_B14_MSG_SET_PWM = 0x01
+    TO_B14_MSG_SET_PWM = 0x01,
+    TO_B14_RESET_ODOMETRY = 0x02
 }FROM_USER_MSG_e;
 
 typedef enum
