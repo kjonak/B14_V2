@@ -10,6 +10,6 @@ void COMHANDLER_Task(timeUs_t t);
 
 void COMHANDLER_SendConfirmation(uint8_t data);
 timeUs_t COMHANDLER_TimeSinceLastUpdate();
-void COMHANDLER_SendHeartBeat();
+
 
 

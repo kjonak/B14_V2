@@ -5,7 +5,6 @@ typedef enum
 {
     TO_B14_MSG_REQUEST_PID = 0x23,
     TO_B14_MSG_NEW_PID = 0x24,
-    TO_B14_MSG_HEART_BEAT = 0x25,
     TO_B14_MSG_STOP_MOTORS = 0x26,
     TO_B14_MSG_ENABLE_MOTORS = 0x27,
     TO_B14_MSG_SET_PWM = 0x01,
@@ -14,7 +13,6 @@ typedef enum
 
 typedef enum
 {
-        MSG_TO_USER_HEART_BEAT = 0x3,
         MSG_TO_USER_TELEMETRY = 0x04,
         MSG_TO_USER_NEW_PID_CONFIRM = 0x2,
         MSG_TO_USER_PID = 0x1,

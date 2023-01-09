@@ -2,11 +2,12 @@
 #include "PID.h"
 #include "Variables.h"
 #include <string.h>
+#include <stdbool.h>
 #include "odometry.h"
 #include "config.h"
 #include "IO/Motors.h"
 
-static timeUs_t last_time;
+static timeUs_t last_time,last_input;
 static timeUs_t last_hb;
 
 static float in_mode;
@@ -20,6 +21,8 @@ static float control_angle(float dt);
 static float control_direction(float dt);
 static void update_motors(float M1, float M2);
 
+bool orientation_calibrated = false;
+
 void CTRL_task(timeUs_t currentTime)
 {
     //   if((micros()-last_hb)>CTRL_HB_TIMEOUT_US)
@@ -28,6 +31,12 @@ void CTRL_task(timeUs_t currentTime)
     //       return;
     //    }
     float dt_seconds = (float)(micros() - last_time) / 1.0E6;
+    if((micros()-last_input)>200000)
+    {
+        update_motors(0, 0);
+        last_time = micros();
+        return;
+    }
     if (in_mode == 1)
     {
         M1_out = VAR_GetFloat(VAR_DESIRED_VELOCITY);
@@ -43,7 +52,10 @@ void CTRL_task(timeUs_t currentTime)
         M1_out = control_velocity(dt_seconds);
         M2_out = control_direction(dt_seconds);
     }
-
+    if(!orientation_calibrated)
+        {
+            M1_out = 0; M2_out = 0.5;
+        }
     update_motors(M1_out, M2_out);
     last_time = micros();
 }
@@ -60,8 +72,10 @@ void CTRL_EnableMotors()
 {
     MOTORS_Enable();
 }
+
 void CTRL_NewInput(uint8_t *data, uint8_t len)
 {
+    last_input = micros();
     float fwd, rot;
     memcpy(&in_mode, data, sizeof(float));
     memcpy(&fwd, data + sizeof(float), sizeof(float));
@@ -92,17 +106,10 @@ void CTRL_Init()
 static float control_velocity(float dt)
 {
     float d_velocity = VAR_GetFloat(VAR_DESIRED_VELOCITY);
-    float velocity = VAR_GetFloat(VAR_VELOCITY);
-    float estimated_acceleration = (d_velocity - velocity) / dt;
 
-    if (estimated_acceleration > MAX_ACCELERATION)
-    {
-        d_velocity = velocity + MAX_ACCELERATION * dt;
-    }
-    else if (estimated_acceleration < -MAX_ACCELERATION)
-    {
-        d_velocity = velocity - MAX_ACCELERATION * dt;
-    }
+
+
+
 
     // if((-MIN_VELOCITY<d_velocity) & (d_velocity<MIN_VELOCITY))
     //         d_velocity = 0;

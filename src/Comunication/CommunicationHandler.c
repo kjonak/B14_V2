@@ -129,9 +129,7 @@ void COMHANDLER_Task(timeUs_t t)
         uart.TransmitDMA(msg_from_okon.tx_buffer, msg_from_okon.buffer_len);
         break;
 
-    case TO_B14_MSG_HEART_BEAT:
-        CTRL_NewHB();
-        break;
+   
     case TO_B14_MSG_STOP_MOTORS:
         CTRL_StopMotors();
 
@@ -171,10 +169,3 @@ void HandlePIDRequest()
 
 
 
-void COMHANDLER_SendHeartBeat()
-{
-    msg_from_okon.data_len = 0;
-    msg_from_okon.type = MSG_TO_USER_HEART_BEAT;
-    COMPROTO_CreateMsg(&msg_from_okon);
-    uart.TransmitDMA(msg_from_okon.tx_buffer, msg_from_okon.buffer_len);
-}

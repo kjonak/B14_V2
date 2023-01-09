@@ -20,7 +20,7 @@ typedef struct
 
 static int32_t counter_1 = 0;
 static int32_t counter_2 = 0;
-
+extern bool orientation_calibrated;
 static int32_t *counter_angle, *counter_distance;
 static ODO_data_t data;
 static timeUs_t last_time;
@@ -68,6 +68,9 @@ void EXTI0_1_IRQHandler()
         EXTI->RPR1 |= EXTI_RPR1_RPIF1;
 
         rot_cnt = 0;
+        if(!orientation_calibrated)
+            orientation_calibrated = true;
+        
     }
 }
 
@@ -125,5 +128,5 @@ void ODO_task(timeUs_t currentTime)
 }
 void ODO_ResetDist()
 {
-    data.distance = 0;
+    *data.distance = 0;
 }

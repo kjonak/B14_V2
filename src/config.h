@@ -1,7 +1,7 @@
 #pragma once
 #include <stm32g070xx.h>
 
-#define VELOCITY_ENCODER_PPR 109512.f
+#define VELOCITY_ENCODER_PPR 109512.f *0.98f/0.96f/1.01f
 #define ROT_ENCODER_PPR 603840
 
 #define MIN_SIG 0.1
